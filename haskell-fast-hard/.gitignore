@@ -2,3 +2,5 @@
 *
 # Unignore all with .hs extensions
 !*.hs
+# Unignore all dirs
+!*/
