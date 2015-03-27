@@ -1,2 +1,4 @@
-*.hi
-*.o
+# Ignore all
+*
+# Unignore all with .hs extensions
+!*.hs
