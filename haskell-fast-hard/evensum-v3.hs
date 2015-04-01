@@ -7,3 +7,5 @@ evenSum l = accumSum 0 l
              if even x
                 then accumSum (n+x) xs
                 else accumSum n xs
+
+main = print $ evenSum [1..10]
