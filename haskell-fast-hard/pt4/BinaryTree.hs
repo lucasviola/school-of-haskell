@@ -53,6 +53,7 @@ treeTakeDepth n (Node x left right) =
 
 -- Infinitely recursive null tree:
 nullTree = Node 0 nullTree nullTree
+
 weirdTree = Node 0 (dec weirdTree) (inc weirdTree)
 	where
 		dec (Node x l r) = Node (x-1) (dec l) (dec r)
