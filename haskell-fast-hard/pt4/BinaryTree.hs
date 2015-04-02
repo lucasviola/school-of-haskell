@@ -1,6 +1,6 @@
 import Data.List
 
-data BinTree a = Empty | Node a (BinTree a) (BinTree a)
+data BinTree a = Empty | Node a (BinTree a) (BinTree a) deriving (Ord, Eq)
 
 -- Making the Tree an instance of the Show class, so we can prettify its printing
 instance (Show a) => Show (BinTree a) where
@@ -46,4 +46,7 @@ main = do
 
 	putStrLn "Binary 'prettified' [Char] Tree"
 	print $ treeFromList ["foo", "bar", "baz"]
+
+	--Tree of Trees
+	print (treeFromList (map treeFromList ["lucas", "melanie", "tatiany", "luisa"]))
 
