@@ -1,5 +1,6 @@
 import Data.List
 
+-- TYPE CONSTRUCTOR
 data BinTree a = Empty | Node a (BinTree a) (BinTree a) deriving (Ord, Eq)
 
 -- Making the Tree an instance of the Show class, so we can prettify its printing
@@ -31,14 +32,31 @@ instance (Show a) => Show (BinTree a) where
  	  			| x == c = new
  	  			| otherwise = x:[] -- "x"
 
+-- FUNCTIONS
 
---function which turns a list into an ordered bin tree
--- The root is x
--- THe left node is created from members of the list's tail which are inferior to x
--- And the right node from members which are superior to x
+-- Turns a list into an ordered bin tree
 treeFromList :: (Ord a) => [a] -> BinTree a
 treeFromList [] = Empty
 treeFromList (x:xs) = Node x (treeFromList (filter (<x) xs)) (treeFromList (filter (>x) xs))
+
+-- Takes all elements up to some depth
+treeTakeDepth _ Empty = Empty
+treeTakeDepth 0 _	  = Empty
+treeTakeDepth n (Node x left right) =
+	let
+		nl = treeTakeDepth (n-1) left
+		nr = treeTakeDepth (n-1) right
+	in
+		Node x nl nr
+
+-- Now let us create some weird trees
+
+-- Infinitely recursive null tree:
+nullTree = Node 0 nullTree nullTree
+weirdTree = Node 0 (dec weirdTree) (inc weirdTree)
+	where
+		dec (Node x l r) = Node (x-1) (dec l) (dec r)
+		inc (Node x l r) = Node (x+1) (inc l) (inc r)
 
 main = do
 	putStrLn "Binary 'prettified' Integer Tree:"
@@ -50,3 +68,5 @@ main = do
 	--Tree of Trees
 	print (treeFromList (map treeFromList ["lucas", "melanie", "tatiany", "luisa"]))
 
+	-- Null Tree
+	print $ treeTakeDepth 3 nullTree
