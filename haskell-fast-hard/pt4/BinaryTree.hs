@@ -14,6 +14,9 @@ instance (Show a) => Show (BinTree a) where
  	  treeshow pref (Node x left Empty) = (pshow pref x) ++ "\n" ++ (showSon pref "`--" "    " left)
  	  -- Empty left branch
  	  treeshow pref (Node x Empty right) = (pshow pref x) ++ "\n" ++ (showSon pref "`--" "    " right)
+ 	  -- Both left and right children non empty
+ 	  treeshow pref (Node x left right) = (pshow pref x) ++ "\n" ++ (showSon pref "|--" "|   " left) ++ "\n" ++ (showSon pref "`--" "    " right)
+
  	  -- shows the pretty tree using prefixes
  	  showSon pref before next t = pref ++ before ++ treeshow (pref ++ next) t
 
@@ -39,7 +42,7 @@ treeFromList (x:xs) = Node x (treeFromList (filter (<x) xs)) (treeFromList (filt
 
 main = do
 	putStrLn "Binary 'prettified' Integer Tree:"
-	print $ treeFromList [1,10,2,3,4,6,7]
+	print $ treeFromList [7,2,4,8,1,3,6,21,12,23]
 
 	putStrLn "Binary 'prettified' [Char] Tree"
 	print $ treeFromList ["foo", "bar", "baz"]
