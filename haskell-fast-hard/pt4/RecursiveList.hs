@@ -5,7 +5,7 @@ data List a = Nil | a ::: (List a) deriving (Show, Read, Eq, Ord)
 
 convertList [] = Nil
 convertList (x:xs) = x ::: convertList xs 
--- The list will always get concatenated with Nil which is the same as a : []
+-- The list will always get concatenated with Nil which is the same as [a] ++ []
 
 main = do
 	print (0 ::: 1 ::: Nil)
