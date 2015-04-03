@@ -67,7 +67,7 @@ main = do
 	print $ treeFromList ["foo", "bar", "baz"]
 
 	--Tree of Trees
-	print (treeFromList (map treeFromList ["lucas", "melanie", "tatiany", "luisa"]))
+	print (treeFromList (map treeFromList ["lucas", "melanie", "julia", "matheus"]))
 
 	-- Null Tree
 	print $ treeTakeDepth 3 nullTree
