@@ -4,6 +4,7 @@ import Data.Maybe
 data Token = TokenOperator Operator 
 			 |  TokenIdentifier String 
 			 | TokenNumber Int
+			 | TokenSpace
 	deriving (Show, Eq)
 
 data Operator = Plus | Minus | Times | Div deriving (Show, Eq)
@@ -23,13 +24,18 @@ charToOperator c | c == '+' = Plus
            		 | c == '/' = Div
 
 tokenize :: String -> [Token]
-tokenize [] = []
-tokenize (c:cs)
-	| elem c "+-*/" = TokenOperator (charToOperator c) : tokenize cs
-	| isDigit c = TokenNumber (digitToInt c) : tokenize cs
-	| isAlpha c = TokenIdentifier [c] 		 : tokenize cs
-	| isSpace c = tokenize cs
+tokenize = map tokenizeChar
+
+tokenizeChar :: Char -> Token
+tokenizeChar c
+	| elem c "+-*/" = TokenOperator (charToOperator c)
+	| isDigit c = TokenNumber (digitToInt c)
+	| isAlpha c = TokenIdentifier [c]
+	| isSpace c = TokenSpace
 	| otherwise = error $ "Cannot tokenize: " ++ [c]
+
+removeSpaces :: [Token] -> [Token]
+removeSpaces str = filter (\t -> t /= TokenSpace) str
 
 showContent :: Token -> String
 showContent (TokenOperator operator) = operatorToString operator
