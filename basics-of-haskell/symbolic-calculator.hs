@@ -11,4 +11,7 @@ evaluate :: Expression -> Double
 evaluate = undefined
 
 main :: IO ()
-main = putStrLn "Is this the real world?"
+main = do
+	line <- getLine
+	putStrLn line
+	main
