@@ -1,3 +1,6 @@
+import Data.Char
+import Data.Maybe
+
 data Token = TokenOperator Operator 
 			 |  TokenIdentifier String 
 			 | TokenNumber Int
@@ -13,13 +16,17 @@ operatorToString Minus = "-"
 operatorToString Times = "*"
 operatorToString Div = "/"
 
+charToOperator :: Char -> Maybe Operator
+charToOperator c | c == '+' = Just Plus
+           		 | c == '-' = Just Minus
+           		 | c == '*' = Just Times
+           		 | c == '/' = Just Div
+           		 | otherwise = Nothing
+
 showContent :: Token -> String
 showContent (TokenOperator operator) = operatorToString operator
 showContent (TokenIdentifier str) = str
 showContent (TokenNumber number) = show number
-
-tokenize :: String -> [Token]
-tokenize = undefined
 
 parse :: [Token] -> Expression
 parse = undefined
@@ -31,9 +38,8 @@ token :: Token
 token = TokenIdentifier "x"
 
 main :: IO ()
-main = do
-	putStrLn $ showContent token
-	print token
+main = do print $ charToOperator '1'
+	
 --	line <- getLine
 --	putStrLn line
 --	main
