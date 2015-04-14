@@ -52,7 +52,7 @@ token :: Token
 token = TokenIdentifier "x"
 
 main :: IO ()
-main = do print $ tokenize "1 + 4 / x"
+main = do print $ removeSpaces $ tokenize "1 + 4 / x"
 	
 --	line <- getLine
 --	putStrLn line
